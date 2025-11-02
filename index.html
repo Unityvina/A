@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUY TRÌNH BẢO VỆ HÀNG HÓA - CNC WAREHOUSE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0a74da;
+            --accent: #ff3b5c;
+            --dark: #0f172a;
+            --glass: rgba(15, 23, 42, 0.7);
+            --light-glass: rgba(255, 255, 255, 0.1);
+            --text: #e2e8f0;
+            --border: rgba(0, 212, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text);
+            min-height: 100vh;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--dark);
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.8rem;
+            background: linear-gradient(90deg, var(--primary), #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            filter: drop-shadow(0 0 8px var(--primary));
+        }
+
+        ol {
+            counter-reset: item;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-left: 2.5rem;
+            counter-increment: item;
+            transition: all 0.3s ease;
+        }
+
+        li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--dark);
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        li:hover {
+            transform: translateX(8px);
+        }
+
+        li strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        ul {
+            margin-top: 0.8rem;
+            padding-left: 1.2rem;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .note {
+            background: linear-gradient(135deg, rgba(255, 59, 92, 0.15), rgba(255, 193, 7, 0.15));
+            border-left: 4px solid var(--accent);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .note::before {
+            content: '⚠';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            opacity: 0.1;
+            color: var(--accent);
+        }
+
+        .note strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 255, 136, 0.15);
+            color: #00ff88;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .status-badge i {
+            font-size: 0.7rem;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 212, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; margin: 1rem; }
+            h1 { font-size: 2rem; }
+            .section-title { font-size: 1.4rem; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>QUY TRÌNH BẢO VỆ HÀNG HÓA</h1>
+            <p class="subtitle">Hệ thống quản lý kho thông minh CNC - Phiên bản 4.0</p>
+            <div class="status-badge">
+                <i class="fas fa-circle"></i> Hoạt động 24/7
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">
+                <i class="fas fa-user-check"></i>
+                I. KHI CÓ NHÂN VIÊN KHO TRỰC TIẾP
+            </h2>
+            <ol>
+                <li><strong>Nhận diện và kiểm tra nhân sự ra vào kho:</strong>
+                    <ul>
+                        <li>Chỉ nhân viên được phân công mới được vào khu vực kho.</li>
+                        <li>Yêu cầu xuất trình thẻ nhân viên, giấy ủy quyền (nếu là nhân viên hợp đồng, nhà cung cấp).</li>
+                        <li>Ghi chép đầy đủ vào <em>Sổ ra vào kho</em>: Họ tên, thời gian vào/ra, mục đích, chữ ký.</li>
+                    </ul>
+                </li>
+                <li><strong>Giám sát hoạt động bốc dỡ, di chuyển hàng:</strong>
+                    <ul>
+                        <li>Nhân viên kho phải có mặt 100% thời gian khi có thao tác với hàng hóa.</li>
+                        <li>Kiểm đếm số lượng, kiểm tra tình trạng bao bì trước khi nhận và sau khi xuất.</li>
+                        <li>Sử dụng camera giám sát + theo dõi trực tiếp tại chỗ.</li>
+                    </ul>
+                </li>
+                <li><strong>Áp dụng nguyên tắc “2 người” với hàng giá trị cao:</strong>
+                    <ul>
+                        <li>Mọi thao tác với hàng hóa giá trị ≥ 50 triệu đồng phải có ít nhất 2 nhân viên cùng thực hiện và ký xác nhận.</li>
+                    </ul>
+                </li>
+                <li><strong>Báo cáo bất thường ngay lập tức:</strong>
+                    <ul>
+                        <li>Phát hiện dấu hiệu xâm nhập, hư hỏng, mất mát → báo quản lý kho và bảo vệ trong vòng 5 phút.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">
+                <i class="fas fa-robot"></i>
+                II. KHI KHÔNG CÓ NHÂN VIÊN KHO TRỰC TIẾP
+            </h2>
+            <ol>
+                <li><strong>Kích hoạt hệ thống an ninh tự động:</strong>
+                    <ul>
+                        <li>Khóa toàn bộ cửa ra vào bằng khóa cơ + khóa điện từ.</li>
+                        <li>Bật hệ thống báo động chống trộm, cảm biến chuyển động.</li>
+                        <li>Camera giám sát hoạt động 24/7, lưu trữ dữ liệu ít nhất 30 ngày.</li>
+                    </ul>
+                </li>
+                <li><strong>Phân ca bảo vệ trực tại chỗ:</strong>
+                    <ul>
+                        <li>Luôn có ít nhất 1 bảo vệ trực tại chốt bảo vệ kho 24/7.</li>
+                        <li>Thực hiện tuần tra định kỳ mỗi 60 phút, ghi chép vào <em>Sổ tuần tra</em>.</li>
+                        <li>Sử dụng đèn chiếu sáng tự động cảm biến + đèn pha khi tuần tra.</li>
+                    </ul>
+                </li>
+                <li><strong>Niêm phong khu vực kho:</strong>
+                    <ul>
+                        <li>Dán seal niêm phong cửa chính, cửa phụ (ghi mã seal vào sổ).</li>
+                        <li>Chụp ảnh seal trước khi kết ca → gửi quản lý kho qua Zalo/Email.</li>
+                    </ul>
+                </li>
+                <li><strong>Ứng phó sự cố:</strong>
+                    <ul>
+                        <li>Nhận tín hiệu báo động → bảo vệ kiểm tra ngay lập tức, báo công an nếu có dấu hiệu đột nhập.</li>
+                        <li>Ghi nhận hiện trường, không di chuyển hàng hóa cho đến khi có quản lý.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">
+                <i class="fas fa-file-alt"></i>
+                III. BIỂU MẪU GHI CHÉP BẮT BUỘC
+            </h2>
+            <table>
+                <tr>
+                    <th><i class="fas fa-clipboard-list"></i> Biểu mẫu</th>
+                    <th><i class="fas fa-clock"></i> Thời điểm sử dụng</th>
+                    <th><i class="fas fa-user-shield"></i> Người chịu trách nhiệm</th>
+                </tr>
+                <tr>
+                    <td>Sổ ra vào kho</td>
+                    <td>Khi có người ra vào</td>
+                    <td>Nhân viên kho / Bảo vệ</td>
+                </tr>
+                <tr>
+                    <td>Phiếu kiểm kê hàng hóa</td>
+                    <td>Trước/sau ca làm việc</td>
+                    <td>Nhân viên kho</td>
+                </tr>
+                <tr>
+                    <td>Sổ tuần tra bảo vệ</td>
+                    <td>Mỗi lượt tuần tra</td>
+                    <td>Bảo vệ</td>
+                </tr>
+                <tr>
+                    <td>Biên bản niêm phong</td>
+                    <td>Kết ca không có nhân viên kho</td>
+                    <td>Bảo vệ + Quản lý kho (ký qua ảnh)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="note">
+            <strong>LƯU Ý QUAN TRỌNG</strong>
+            <ul>
+                <li>Mọi vi phạm quy trình → xử lý kỷ luật ngay lập tức.</li>
+                <li>Định kỳ diễn tập PCCC & ứng phó mất cắp hàng quý.</li>
+                <li>Quản lý kho kiểm tra ngẫu nhiên camera + sổ sách ít nhất 2 lần/tuần.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p><strong>Ngày ban hành:</strong> 03/11/2025</p>
+            <p><strong>Người phê duyệt:</strong> _____________________</p>
+            <p>© 2025 CNC Warehouse Security System. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Thêm hiệu ứng khi scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+
+  
+</body>
+</html>
