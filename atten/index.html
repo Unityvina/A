@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chấm Công - VLBAOVE</title>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f6f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1 { color: #333; text-align: center; }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin: 10px 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-google {
+      background: #db4437;
+      color: white;
+    }
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+    input {
+      padding: 12px;
+      width: 70%;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px;
+      background: #f8f9fa;
+      margin: 5px 0;
+      border-radius: 5px;
+      border-left: 4px solid #28a745;
+    }
+    #attendance-section { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Phần Login -->
+    <div id="login-section">
+      <h1>🔐 Hệ Thống Chấm Công</h1>
+      <p style="text-align:center;">Chỉ cho phép email: <strong>lapgia57@gmail.com</strong></p>
+      <div style="text-align:center; margin-top:30px;">
+        <button class="btn-google" onclick="loginWithGoogle()">
+          Đăng nhập bằng Google
+        </button>
+      </div>
+    </div>
+
+    <!-- Phần Chấm Công -->
+    <div id="attendance-section">
+      <h1>📋 Chấm Công</h1>
+      <p>Xin chào, <strong id="user-email"></strong></p>
+      <button onclick="logout()" style="background:#dc3545; color:white;">Đăng xuất</button>
+
+      <hr>
+      
+      <h2>Chấm công hôm nay</h2>
+      <input type="text" id="employee-name" placeholder="Nhập tên nhân viên" />
+      <button class="btn-success" onclick="markAttendance()">✅ Chấm Công</button>
+
+      <h2>Danh sách đã chấm công hôm nay</h2>
+      <ul id="attendance-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    // ================== CONFIG FIREBASE ==================
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_fB6fPUZH4uJVpK9pzkjs7DP07kNW2MU",
+      authDomain: "vlbaovework.firebaseapp.com",
+      databaseURL: "https://vlbaovework-default-rtdb.firebaseio.com",
+      projectId: "vlbaovework",
+      storageBucket: "vlbaovework.firebasestorage.app",
+      messagingSenderId: "478788881372",
+      appId: "1:478788881372:web:a3cfc3f6ce2c22cc0c9d19"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    // ================== GOOGLE LOGIN ==================
+    async function loginWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      
+      try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+
+        if (user.email !== "lapgia57@gmail.com") {
+          alert("❌ Chỉ email lapgia57@gmail.com mới được truy cập!");
+          await auth.signOut();
+          return;
+        }
+
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("attendance-section").style.display = "block";
+        document.getElementById("user-email").textContent = user.email;
+
+        loadAttendanceData();
+
+      } catch (error) {
+        console.error(error);
+        alert("Đăng nhập thất bại: " + error.message);
+      }
+    }
+
+    // ================== ĐĂNG XUẤT ==================
+    function logout() {
+      auth.signOut().then(() => {
+        document.getElementById("login-section").style.display = "block";
+        document.getElementById("attendance-section").style.display = "none";
+      });
+    }
+
+    // ================== CHẤM CÔNG ==================
+    async function markAttendance() {
+      const nameInput = document.getElementById("employee-name");
+      const name = nameInput.value.trim();
+
+      if (!name) {
+        alert("Vui lòng nhập tên nhân viên!");
+        return;
+      }
+
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+      const time = new Date().toLocaleTimeString('vi-VN');
+
+      try {
+        await db.ref('attendance/' + today).push({
+          name: name,
+          time: time,
+          timestamp: Date.now()
+        });
+
+        alert(`✅ Đã chấm công: ${name} lúc ${time}`);
+        nameInput.value = "";
+        loadAttendanceData();
+      } catch (e) {
+        alert("Lỗi khi chấm công: " + e.message);
+      }
+    }
+
+    // ================== TẢI DANH SÁCH ==================
+    function loadAttendanceData() {
+      const today = new Date().toISOString().split('T')[0];
+      const list = document.getElementById("attendance-list");
+      
+      db.ref('attendance/' + today).on('value', (snapshot) => {
+        list.innerHTML = "";
+        
+        if (!snapshot.exists()) {
+          list.innerHTML = "<li>Chưa có ai chấm công hôm nay.</li>";
+          return;
+        }
+
+        snapshot.forEach(child => {
+          const data = child.val();
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${data.name}</strong> - ${data.time}`;
+          list.appendChild(li);
+        });
+      });
+    }
+
+    // ================== THEO DÕI TRẠNG THÁI ĐĂNG NHẬP ==================
+    auth.onAuthStateChanged(user => {
+      if (user && user.email === "lapgia57@gmail.com") {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("attendance-section").style.display = "block";
+        document.getElementById("user-email").textContent = user.email;
+        loadAttendanceData();
+      }
+    });
+  </script>
+</body>
+</html>
