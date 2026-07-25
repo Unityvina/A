@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản Lý Nhiệt Độ Nóng Chảy Kim Loại Nặng</title>
-  <!-- Tailwind CSS -->
+  <title>Bài ca hoá trị</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -15,24 +13,25 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
 
-  <!-- Header Header -->
   <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400">
-          <i class="fa-solid fa-flask-vial text-xl"></i>
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+          <i class="fa-solid fa-recycle text-xl"></i>
         </div>
         <div>
-          <h1 class="text-lg font-bold text-white leading-tight">ChemData Lab</h1>
-          <p class="text-xs text-slate-400">Sổ tay nhiệt độ nóng chảy kim loại nặng</p>
+          <h1 class="text-lg font-bold text-white leading-tight">EcoMelt Lab</h1>
+          <p class="text-xs text-slate-400">Sổ tay nhiệt độ nóng chảy & Tái chế kim loại</p>
         </div>
       </div>
 
-      <!-- User Status / Logout -->
       <div id="user-profile" class="hidden flex items-center gap-4">
         <div class="flex items-center gap-2">
-          <img id="user-avatar" class="w-8 h-8 rounded-full border border-teal-500/40" src="" alt="Avatar">
-          <span id="user-name" class="text-sm font-medium text-slate-200"></span>
+          <img id="user-avatar" class="w-8 h-8 rounded-full border border-emerald-500/40" src="" alt="Avatar">
+          <div>
+            <span id="user-name" class="text-sm font-medium text-slate-200 block leading-none"></span>
+            <span class="text-[10px] text-emerald-400">Kho dữ liệu cá nhân</span>
+          </div>
         </div>
         <button id="btn-logout" class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition border border-transparent hover:border-rose-500/20">
           <i class="fa-solid fa-right-from-bracket mr-1"></i> Đăng xuất
@@ -41,20 +40,17 @@
     </div>
   </header>
 
-  <!-- Main Container -->
   <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6">
 
-    <!-- LOGIN SECTION (Hiển thị khi chưa đăng nhập) -->
     <section id="auth-section" class="max-w-md mx-auto my-12 bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur">
       <div class="text-center mb-6">
-        <div class="w-12 h-12 bg-teal-500/20 border border-teal-500/40 rounded-2xl flex items-center justify-center mx-auto mb-3 text-teal-400">
-          <i class="fa-solid fa-atom text-2xl"></i>
+        <div class="w-12 h-12 bg-emerald-500/20 border border-emerald-500/40 rounded-2xl flex items-center justify-center mx-auto mb-3 text-emerald-400">
+          <i class="fa-solid fa-user-lock text-2xl"></i>
         </div>
-        <h2 class="text-xl font-bold text-white">Đăng Nhập Hệ Thống</h2>
-        <p class="text-xs text-slate-400 mt-1">Vui lòng đăng nhập để xem và quản lý dữ liệu hóa học</p>
+        <h2 class="text-xl font-bold text-white">Đăng Nhập Cá Nhân</h2>
+        <p class="text-xs text-slate-400 mt-1">Đăng nhập để quản lý danh mục nhiệt độ tái chế của riêng bạn</p>
       </div>
 
-      <!-- Google Sign In -->
       <button id="btn-google-login" class="w-full flex items-center justify-center gap-3 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2.5 px-4 rounded-xl border border-slate-600 transition mb-4">
         <svg class="w-5 h-5" viewBox="0 0 24 24">
           <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/>
@@ -70,114 +66,109 @@
         <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800 px-3 text-xs text-slate-400">hoặc Email</span>
       </div>
 
-      <!-- Email / Password Form -->
       <form id="email-login-form" class="space-y-4">
         <div>
           <label class="block text-xs font-medium text-slate-300 mb-1">Email</label>
-          <input type="email" id="login-email" required placeholder="lab@chemistry.com" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-teal-500 transition">
+          <input type="email" id="login-email" required placeholder="kythuat@taiche.com" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
         </div>
         <div>
           <label class="block text-xs font-medium text-slate-300 mb-1">Mật khẩu</label>
-          <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-teal-500 transition">
+          <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
         </div>
         <div class="flex gap-2 pt-2">
-          <button type="submit" id="btn-login-email" class="flex-1 bg-teal-600 hover:bg-teal-500 text-white font-medium py-2.5 rounded-xl transition text-sm">Đăng nhập</button>
+          <button type="submit" id="btn-login-email" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 rounded-xl transition text-sm">Đăng nhập</button>
           <button type="button" id="btn-register-email" class="px-4 bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium py-2.5 rounded-xl transition text-sm">Đăng ký</button>
         </div>
       </form>
     </section>
 
-    <!-- MAIN DASHBOARD (Chỉ hiển thị sau khi đăng nhập) -->
     <section id="dashboard-section" class="hidden space-y-6">
       
-      <!-- Top Grid: Thêm mới + Thống kê -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Form thêm kim loại -->
         <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-5 backdrop-blur">
-          <h3 class="text-base font-semibold text-teal-400 mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-square-plus"></i> Thêm dữ liệu kim loại
+          <h3 class="text-base font-semibold text-emerald-400 mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-plus-circle"></i> Thêm vật liệu tái chế
           </h3>
           <form id="add-metal-form" class="space-y-3.5">
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Tên kim loại</label>
-              <input type="text" id="metal-name" required placeholder="Ví dụ: Vôn-fram (Tungsten)" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-500 outline-none">
+              <label class="block text-xs text-slate-300 mb-1">Tên vật liệu / Kim loại phế liệu</label>
+              <input type="text" id="metal-name" required placeholder="Ví dụ: Vỏ lon nhôm phế liệu" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-emerald-500 outline-none">
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs text-slate-300 mb-1">Ký hiệu hóa học</label>
-                <input type="text" id="metal-symbol" required placeholder="W" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-500 outline-none uppercase">
+                <label class="block text-xs text-slate-300 mb-1">Ký hiệu / Loại</label>
+                <input type="text" id="metal-symbol" required placeholder="Al" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-emerald-500 outline-none uppercase">
               </div>
               <div>
-                <label class="block text-xs text-slate-300 mb-1">Số hiệu nguyên tử (Z)</label>
-                <input type="number" id="metal-atomic" required placeholder="74" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-500 outline-none">
+                <label class="block text-xs text-slate-300 mb-1">Nhiệt độ nóng chảy (°C)</label>
+                <input type="number" step="0.1" id="metal-melting" required placeholder="660.3" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-emerald-500 outline-none">
               </div>
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Nhiệt độ nóng chảy (°C)</label>
-              <input type="number" step="0.1" id="metal-melting" required placeholder="3422" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-500 outline-none">
+              <label class="block text-xs text-slate-300 mb-1">Lưu ý & Quy trình tái chế</label>
+              <textarea id="metal-recycle-note" rows="3" placeholder="Nấu chảy đúc thỏi, xử xỉ nhôm, tiết kiệm 95% năng lượng so với sản xuất nguyên sinh..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-emerald-500 outline-none"></textarea>
             </div>
-            <div>
-              <label class="block text-xs text-slate-300 mb-1">Ghi chú / Ứng dụng</label>
-              <textarea id="metal-note" rows="2" placeholder="Dùng trong dây tóc bóng đèn, hợp kim siêu cứng..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-500 outline-none"></textarea>
-            </div>
-            <button type="submit" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-medium py-2 rounded-xl transition text-sm flex items-center justify-center gap-2">
-              <i class="fa-solid fa-floppy-disk"></i> Lưu vào Cơ Sở Dữ Liệu
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2 rounded-xl transition text-sm flex items-center justify-center gap-2">
+              <i class="fa-solid fa-floppy-disk"></i> Lưu vào kho cá nhân
             </button>
           </form>
         </div>
 
-        <!-- Quick Info / Samples -->
         <div class="lg:col-span-2 bg-slate-800/30 border border-slate-700/40 rounded-2xl p-5 flex flex-col justify-between">
           <div>
-            <h3 class="text-base font-semibold text-slate-200 mb-2 flex items-center gap-2">
-              <i class="fa-solid fa-circle-info text-amber-400"></i> Tra cứu nhanh kim loại nặng tiêu biểu
-            </h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Các kim loại nặng thường có mật độ khối lượng riêng cao (trên 5 g/cm³). Nhiều kim loại nặng có nhiệt độ nóng chảy rất cao được ứng dụng rộng rãi trong hàng không, y tế và công nghiệp chế tạo.
-            </p>
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-base font-semibold text-slate-200 flex items-center gap-2">
+                  <i class="fa-solid fa-leaf text-emerald-400"></i> Lợi ích nhiệt độ trong Tái chế Kim loại
+                </h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Tái chế kim loại đòi hỏi nhiệt độ nóng chảy thấp hơn nhiều so with việc luyện kim từ quặng thô, giúp giảm thiểu khí thải CO₂ và tiết kiệm đáng kể năng lượng.
+                </p>
+              </div>
+              <button id="btn-seed-data" class="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-xl text-xs font-medium transition flex items-center gap-1.5 shrink-0">
+                <i class="fa-solid fa-download"></i> Tải ví dụ tái chế mẫu
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4">
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                <div class="text-xs text-slate-400 font-medium">Tái chế Nhôm (Al)</div>
+                <div class="text-lg font-bold text-amber-400 my-1">660.3 °C</div>
+                <div class="text-[11px] text-emerald-400"><i class="fa-solid fa-bolt"></i> Tiết kiệm 95% năng lượng</div>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                <div class="text-xs text-slate-400 font-medium">Tái chế Đồng (Cu)</div>
+                <div class="text-lg font-bold text-amber-400 my-1">1085 °C</div>
+                <div class="text-[11px] text-emerald-400"><i class="fa-solid fa-bolt"></i> Tiết kiệm 85% năng lượng</div>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                <div class="text-xs text-slate-400 font-medium">Tái chế Thép/Sắt (Fe)</div>
+                <div class="text-lg font-bold text-amber-400 my-1">1538 °C</div>
+                <div class="text-[11px] text-emerald-400"><i class="fa-solid fa-bolt"></i> Tiết kiệm 75% năng lượng</div>
+              </div>
+            </div>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 my-4">
-            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-400">Vôn-fram (W)</span>
-              <p class="text-lg font-bold text-amber-400 mt-0.5">3422 °C</p>
-              <span class="text-[10px] text-slate-500">Cao nhất trong các kim loại</span>
-            </div>
-            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-400">Platin (Pt)</span>
-              <p class="text-lg font-bold text-cyan-400 mt-0.5">1768 °C</p>
-              <span class="text-[10px] text-slate-500">Bạch kim quý hiếm</span>
-            </div>
-            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-400">Chì (Pb)</span>
-              <p class="text-lg font-bold text-emerald-400 mt-0.5">327.5 °C</p>
-              <span class="text-[10px] text-slate-500">Chắn bức xạ X/Gamma</span>
-            </div>
-            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-400">Thủy ngân (Hg)</span>
-              <p class="text-lg font-bold text-rose-400 mt-0.5">-38.8 °C</p>
-              <span class="text-[10px] text-slate-500">Lỏng ở nhiệt độ phòng</span>
-            </div>
-          </div>
-
-          <div class="text-xs text-slate-400 bg-teal-950/40 border border-teal-800/40 p-3 rounded-xl flex items-center justify-between">
-            <span>Dữ liệu được cập nhật trực tuyến theo thời gian thực (Realtime Database).</span>
-            <span id="data-count" class="font-bold text-teal-400">0 bản ghi</span>
+          <div class="text-xs text-slate-400 bg-emerald-950/30 border border-emerald-800/30 p-3 rounded-xl flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+              Dữ liệu được **cá nhân hóa hoàn toàn** theo tài khoản của bạn.
+            </span>
+            <span id="data-count" class="font-bold text-emerald-400">0 vật liệu</span>
           </div>
         </div>
 
       </div>
 
-      <!-- Danh Sách Bảng Dữ Liệu -->
       <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl overflow-hidden backdrop-blur">
         <div class="p-4 border-b border-slate-700/60 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
           <h3 class="text-base font-semibold text-white flex items-center gap-2">
-            <i class="fa-solid fa-list-check text-teal-400"></i> Danh sách Nhiệt Độ Nóng Chảy Kim Loại
+            <i class="fa-solid fa-boxes-stacked text-emerald-400"></i> Bảng dữ liệu nhiệt độ tái chế của bạn
           </h3>
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-            <input type="text" id="search-input" placeholder="Tìm theo tên hoặc ký hiệu..." class="bg-slate-900 border border-slate-700 text-xs text-white rounded-xl pl-8 pr-3 py-1.5 focus:border-teal-500 outline-none w-full sm:w-64">
+            <input type="text" id="search-input" placeholder="Tìm tên hoặc ký hiệu..." class="bg-slate-900 border border-slate-700 text-xs text-white rounded-xl pl-8 pr-3 py-1.5 focus:border-emerald-500 outline-none w-full sm:w-64">
           </div>
         </div>
 
@@ -185,18 +176,16 @@
           <table class="w-full text-left text-sm">
             <thead class="bg-slate-900/80 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-700">
               <tr>
-                <th class="py-3 px-4">Ký hiệu</th>
-                <th class="py-3 px-4">Tên Kim Loại</th>
-                <th class="py-3 px-4">Số Atomic (Z)</th>
-                <th class="py-3 px-4">Nhiệt độ nóng chảy (°C)</th>
-                <th class="py-3 px-4">Ghi chú</th>
+                <th class="py-3 px-4">Loại/Ký hiệu</th>
+                <th class="py-3 px-4">Vật liệu phế liệu</th>
+                <th class="py-3 px-4">Nhiệt độ nóng chảy</th>
+                <th class="py-3 px-4">Ghi chú & Quy trình tái chế</th>
                 <th class="py-3 px-4 text-center">Thao tác</th>
               </tr>
             </thead>
             <tbody id="metals-table-body" class="divide-y divide-slate-700/50 text-slate-300">
-              <!-- Render dữ liệu từ Firebase tại đây -->
               <tr>
-                <td colspan="6" class="py-8 text-center text-slate-500">Đang tải dữ liệu...</td>
+                <td colspan="5" class="py-8 text-center text-slate-500">Đang tải dữ liệu cá nhân...</td>
               </tr>
             </tbody>
           </table>
@@ -207,7 +196,6 @@
 
   </main>
 
-  <!-- Firebase JavaScript Modules -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
@@ -238,7 +226,7 @@
       appId: "1:260529151290:web:5726b82ab528f61bfb0403"
     };
 
-    // Khởi tạo Firebase
+    // Khởi tạo
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
@@ -255,6 +243,7 @@
     const emailLoginForm = document.getElementById('email-login-form');
     const btnRegisterEmail = document.getElementById('btn-register-email');
     const btnLogout = document.getElementById('btn-logout');
+    const btnSeedData = document.getElementById('btn-seed-data');
 
     const addMetalForm = document.getElementById('add-metal-form');
     const metalsTableBody = document.getElementById('metals-table-body');
@@ -262,21 +251,22 @@
     const searchInput = document.getElementById('search-input');
 
     let rawMetalsData = {};
+    let currentUser = null;
 
-    // ---------------- AUTHENTICATION LOGIC ----------------
+    // ---------------- AUTHENTICATION & PERSONALIZATION ----------------
 
-    // 1. Theo dõi trạng thái đăng nhập
     onAuthStateChanged(auth, (user) => {
+      currentUser = user;
       if (user) {
         authSection.classList.add('hidden');
         dashboardSection.classList.remove('hidden');
         userProfile.classList.remove('hidden');
 
         userName.textContent = user.displayName || user.email.split('@')[0];
-        userAvatar.src = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.email)}&background=0D9488&color=fff`;
+        userAvatar.src = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.email)}&background=059669&color=fff`;
 
-        // Lắng nghe dữ liệu realtime
-        listenToMetalsData();
+        // Lắng nghe dữ liệu CÁ NHÂN THEO UID NGƯỜI DÙNG
+        listenToUserMetalsData(user.uid);
       } else {
         authSection.classList.remove('hidden');
         dashboardSection.classList.add('hidden');
@@ -284,7 +274,6 @@
       }
     });
 
-    // 2. Đăng nhập Google
     btnGoogleLogin.addEventListener('click', async () => {
       try {
         await signInWithPopup(auth, googleProvider);
@@ -293,7 +282,6 @@
       }
     });
 
-    // 3. Đăng nhập Email
     emailLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
@@ -305,45 +293,43 @@
       }
     });
 
-    // 4. Đăng ký Email
     btnRegisterEmail.addEventListener('click', async () => {
       const email = document.getElementById('login-email').value;
       const pass = document.getElementById('login-password').value;
       if (!email || !pass) {
-        alert("Vui lòng điền Email và Mật khẩu để đăng ký!");
+        alert("Vui lòng điền Email và Mật khẩu!");
         return;
       }
       try {
         await createUserWithEmailAndPassword(auth, email, pass);
-        alert("Đăng ký tài khoản thành công!");
+        alert("Đăng ký thành công!");
       } catch (err) {
         alert("Đăng ký thất bại: " + err.message);
       }
     });
 
-    // 5. Đăng xuất
     btnLogout.addEventListener('click', () => signOut(auth));
 
-    // ---------------- DATABASE LOGIC ----------------
+    // ---------------- PERSONALIZED DATABASE LOGIC ----------------
 
-    // 1. Thêm kim loại mới
+    // 1. Thêm vật liệu vào đường dẫn CÁ NHÂN (users_data/UID/metals)
     addMetalForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!currentUser) return;
+
       const name = document.getElementById('metal-name').value;
       const symbol = document.getElementById('metal-symbol').value.toUpperCase();
-      const atomic = document.getElementById('metal-atomic').value;
       const melting = parseFloat(document.getElementById('metal-melting').value);
-      const note = document.getElementById('metal-note').value;
+      const note = document.getElementById('metal-recycle-note').value;
 
       try {
-        const metalsRef = ref(db, 'melting_points');
-        await push(metalsRef, {
+        // Lưu trữ cá nhân hóa dưới đường dẫn duy nhất theo UID
+        const userMetalsRef = ref(db, `users_data/${currentUser.uid}/metals`);
+        await push(userMetalsRef, {
           name,
           symbol,
-          atomic,
           melting,
           note,
-          createdBy: auth.currentUser ? auth.currentUser.email : 'Ẩn danh',
           createdAt: Date.now()
         });
 
@@ -353,16 +339,16 @@
       }
     });
 
-    // 2. Lắng nghe và hiển thị bảng dữ liệu Realtime
-    function listenToMetalsData() {
-      const metalsRef = ref(db, 'melting_points');
-      onValue(metalsRef, (snapshot) => {
+    // 2. Lắng nghe dữ liệu cá nhân
+    function listenToUserMetalsData(uid) {
+      const userMetalsRef = ref(db, `users_data/${uid}/metals`);
+      onValue(userMetalsRef, (snapshot) => {
         rawMetalsData = snapshot.val() || {};
         renderTable(rawMetalsData, searchInput.value);
       });
     }
 
-    // 3. Render bảng dữ liệu
+    // 3. Render dữ liệu ra bảng
     function renderTable(dataObj, filterText = '') {
       metalsTableBody.innerHTML = '';
       const keys = Object.keys(dataObj);
@@ -370,11 +356,11 @@
       if (keys.length === 0) {
         metalsTableBody.innerHTML = `
           <tr>
-            <td colspan="6" class="py-8 text-center text-slate-500">
-              Chưa có dữ liệu kim loại nào trong cơ sở dữ liệu. Hãy thêm ở biểu mẫu trên!
+            <td colspan="5" class="py-8 text-center text-slate-500">
+              Kho cá nhân của bạn chưa có dữ liệu. Bạn có thể tự thêm hoặc bấm nút <b>"Tải ví dụ tái chế mẫu"</b> ở trên.
             </td>
           </tr>`;
-        dataCountEl.textContent = "0 bản ghi";
+        dataCountEl.textContent = "0 vật liệu";
         return;
       }
 
@@ -388,11 +374,10 @@
           const tr = document.createElement('tr');
           tr.className = "hover:bg-slate-800/40 transition border-b border-slate-700/40";
           tr.innerHTML = `
-            <td class="py-3 px-4 font-bold text-teal-400">${item.symbol}</td>
+            <td class="py-3 px-4 font-bold text-emerald-400">${item.symbol}</td>
             <td class="py-3 px-4 font-medium text-white">${item.name}</td>
-            <td class="py-3 px-4 text-slate-400">${item.atomic}</td>
             <td class="py-3 px-4 font-semibold text-amber-400">${item.melting} °C</td>
-            <td class="py-3 px-4 text-xs text-slate-400 max-w-xs truncate">${item.note || '—'}</td>
+            <td class="py-3 px-4 text-xs text-slate-300 max-w-sm leading-relaxed">${item.note || '—'}</td>
             <td class="py-3 px-4 text-center">
               <button data-id="${key}" class="btn-delete text-slate-500 hover:text-rose-400 transition p-1.5 rounded-lg hover:bg-rose-500/10">
                 <i class="fa-solid fa-trash-can"></i>
@@ -403,22 +388,70 @@
         }
       });
 
-      dataCountEl.textContent = `${count} bản ghi`;
+      dataCountEl.textContent = `${count} vật liệu`;
 
       // Bắt sự kiện Xóa
       document.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
-          if (confirm("Bạn có chắc chắn muốn xóa bản ghi này?")) {
-            remove(ref(db, `melting_points/${id}`));
+          if (confirm("Bạn có chắc muốn xóa vật liệu này khỏi kho cá nhân?")) {
+            remove(ref(db, `users_data/${currentUser.uid}/metals/${id}`));
           }
         });
       });
     }
 
-    // 4. Tìm kiếm dữ liệu
+    // 4. Tìm kiếm
     searchInput.addEventListener('input', (e) => {
       renderTable(rawMetalsData, e.target.value);
+    });
+
+    // ---------------- NẠP CÁC VÍ DỤ TÁI CHẾ MẪU ----------------
+
+    const recycleSamples = [
+      {
+        name: "Lon nhôm & Phế liệu Nhôm",
+        symbol: "Al",
+        melting: 660.3,
+        note: "Nấu chảy đúc lại thỏi. Tái chế nhôm tiết kiệm đến 95% năng lượng so với sản xuất từ quặng bauxite."
+      },
+      {
+        name: "Cáp đồng & Dây điện cũ",
+        symbol: "Cu",
+        melting: 1085,
+        note: "Đồng tái chế giữ nguyên 100% chất lượng ban đầu, giúp giảm ô nhiễm đất và nước thải từ khai thác khoáng sản."
+      },
+      {
+        name: "Vỏ Bình Ắc Quy Chì",
+        symbol: "Pb",
+        melting: 327.5,
+        note: "Nhiệt độ nóng chảy thấp. Hơn 99% chì trong bình ắc quy xe máy/ô tô có thể thu hồi và tái chế hoàn toàn."
+      },
+      {
+        name: "Thép phế liệu & Sắt công trình",
+        symbol: "Fe",
+        melting: 1538,
+        note: "Luyện bằng lò hồ quang điện (EAF). Tái chế 1 tấn thép tiết kiệm 1.4 tấn quặng sắt và 740kg than."
+      },
+      {
+        name: "Thủy tinh chai lọ (Silica)",
+        symbol: "SiO2",
+        melting: 1400,
+        note: "Thủy tinh có thể tái chế vô hạn lần mà không giảm chất lượng. Nhiệt độ nấu vụn thủy tinh thấp hơn nấu nguyên liệu thô."
+      }
+    ];
+
+    btnSeedData.addEventListener('click', async () => {
+      if (!currentUser) return;
+      if (confirm("Thêm 5 ví dụ tái chế phổ biến vào tài khoản của bạn?")) {
+        const userMetalsRef = ref(db, `users_data/${currentUser.uid}/metals`);
+        for (const sample of recycleSamples) {
+          await push(userMetalsRef, {
+            ...sample,
+            createdAt: Date.now()
+          });
+        }
+      }
     });
 
   </script>
